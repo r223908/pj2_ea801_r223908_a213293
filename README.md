@@ -13,7 +13,7 @@
 * **Demonstração do projeto no YouTube**: [Vídeo](a)
 
 ---
-## ⚙️ DESCRIÇÃO DO SISTEMA (v3)
+## ⚙️ DESCRIÇÃO DO SISTEMA (v0)
 
 
 ![alt text](/docs/images/blockDiag_v0.png "Title")
