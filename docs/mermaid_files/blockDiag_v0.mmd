@@ -1,0 +1,26 @@
+flowchart LR
+    %% Bloco de Entradas
+    subgraph Entradas [Entradas do Sistema]
+        direction TB
+        App[Dispositivo Remoto <br> Aplicativo Mobile/PC]
+    end
+
+    %% Bloco de Processamento
+    subgraph Processamento [Controle]
+        RPi[Placa BitDogLab V7 <br> + Módulo Bluetooth]
+    end
+
+    %% Bloco de Saídas
+    subgraph Saidas [Saídas do Sistema]
+        direction TB
+        M1[Motor Primário <br> Eixo de Rotação]
+        M2[Atuador Linear <br> Posição da Correia CVT]
+        D[Display OLED <br> IHM e Telemetria]
+    end
+
+    %% Conexões lógicas e de dados
+    App -- "Comunicação Sem Fio <br> (Simulação de Carga/Comandos)" --> RPi
+    
+    RPi -- "Controle de Potência <br> (Aceleração)" --> M1
+    RPi -- "Controle de Posição <br> (Ajuste do Câmbio)" --> M2
+    RPi -- "Atualização de Dados <br> (Relação de Transmissão)" --> D
