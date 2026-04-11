@@ -25,14 +25,14 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
 
 
 <figure align="center">
-  <img src="/docs/images/blockDiag_v0.png" width="100%" style="border: 2px solid black; border-radius: 8px;" alt="Diagrama de blocos do projeto">
-  <figcaption><i>Figura 1: Diagrama de blocos do projeto.</i></figcaption>
+    <figcaption><i>Figura 1: Diagrama de blocos do projeto.</i></figcaption>
+    <img src="/docs/images/blockDiag_v0.png" width="100%" style="border: 2px solid black; border-radius: 8px;" alt="Diagrama de blocos do projeto">
+    </br>
 </figure>
 
-</br>
 <figure align="center">
-  <img src="/docs/images/referencia_lego_1.png" width="90%" style="border: 2px solid black; border-radius: 8px;" alt="Referência LEGO">
-  <figcaption><i>Figura 2: Referência de projeto feito em LEGO.</i></figcaption>
+    <figcaption><i>Figura 2: Referência de projeto feito em LEGO.</i></figcaption>
+    <img src="/docs/images/referencia_lego_1.png" width="90%" style="border: 2px solid black; border-radius: 8px;" alt="Referência LEGO">
 </figure>
 
 
