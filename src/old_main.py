@@ -19,8 +19,6 @@ botao_a.irq(trigger=Pin.IRQ_FALLING, handler=trata_interrupcao_botao)
 botao_b.irq(trigger=Pin.IRQ_FALLING, handler=trata_interrupcao_botao)
 botao_c.irq(trigger=Pin.IRQ_FALLING, handler=trata_interrupcao_botao)
 
-
-# toDO: alterar os textos para algo compatível com o câmbio CVT
 def printOled(desvio):
     display.fill(0)     # Limpa a tela antes de desenhar os novos dados
     display.text("BitDogLab V7", 16, 0)     # Cabeçalho
@@ -42,6 +40,15 @@ def printOled(desvio):
     display.text(f"Velocidade: {porcentagem}%", 0, 50)
     display.show()
 
+def buzzerSound():
+    # Se o valor for 0 (pressionado), liga o som. Se for 1 (solto), desliga.
+    if joystick_sw.value() == 0:
+        buzzer.freq(1000)        # Frequência do som (1000 Hz = um apito médio/agudo)
+        buzzer.duty_u16(32768)   # Volume em 50% (metade de 65535)
+    else:
+        buzzer.duty_u16(0)       # Volume 0 (Desliga o buzzer)
+
+
 ultimo_tempo_pisca = utime.ticks_ms()
 ultimo_tempo_oled = utime.ticks_ms()
 estado_led_motor = False
@@ -61,6 +68,8 @@ while True:
         printOled(desvio)
         ultimo_tempo_oled = tempo_atual
     np.fill((0, 0, 0))      # Limpa TODOS os LEDs da matriz de uma vez. 
+
+    buzzerSound()           # 4. Só faz o som se o joystick for pressionado
 
     if abs(desvio) <= ZONA_MORTA:   # 5. Zona Morta (Parado)
         np[LED_MEIO] = cor_travada  
