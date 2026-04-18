@@ -1,5 +1,5 @@
 from machine import Pin, ADC, I2C, PWM
-import neopixel, utime
+import neopixel, utime, machine
 import ssd1306
 
 # 1. Variáveis Globais e Cores
@@ -43,15 +43,38 @@ FRAMES_MOTOR = [[14, 13], [15, 16], [16, 24], [16, 23], [17, 22],
                 [18, 21], [18, 20], [18, 19], [10, 11], [8, 9],
                 [0, 8], [1, 8], [2, 7], [3, 6], [4, 6], [5, 6] ]
 
-#7. Configuração dos controles PWM da placa
-MprincipalPin = 0
-cambioPin = 0
-motorPrincipal = PWM(Pin(MprincipalPin))
-motorCambio = PWM(Pin(cambioPin))
-motorPrincipal.duty_u16(0)
-motorCambio.duty_u16(0)
+# 7. Configuração dos controles de Motor (Ponte H) e PWM da placa
+# IMPORTANTE: GPIO 0 e 1 são do Bluetooth. Vamos usar os pinos livres do conector IDC.
+# Motor Principal (Eixo)
+Mprincipal_DIR1 = Pin(16, Pin.OUT)
+Mprincipal_DIR2 = Pin(17, Pin.OUT)
+Mprincipal_PWM  = PWM(Pin(18))
+Mprincipal_PWM.freq(1000)
+Mprincipal_PWM.duty_u16(0)
+TEMPO_RAMPA_MS = 1000
+# Motor Câmbio (Atuador CVT)
+Mcambio_DIR1 = Pin(19, Pin.OUT)
+Mcambio_DIR2 = Pin(8, Pin.OUT)
+Mcambio_PWM  = PWM(Pin(9))
+Mcambio_PWM.freq(1000)
+Mcambio_PWM.duty_u16(0)
 
+# 8. Configura o LED Azul da placa (GPIO 12) para feedback visual
+led_azul = machine.Pin(12, machine.Pin.OUT)
+led_azul.value(0) # Inicia desligado
 
-#8. Configuração da interface I2C0 para o módulo bluetooth
-from machine import UART
-uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
+# 9. Inicializa a UART0 para o Bluetooth (Pinos do Conector J2)
+bluetooth = machine.UART(0, baudrate=9600, tx=machine.Pin(0), rx=machine.Pin(1))
+
+# 10. Mapeamento das entradas bluetooth
+outButtonDir = '0'
+frontDir = 'F'
+backDir = 'B'
+rightDir = 'R'
+leftDir = 'L'
+triangleDir = 'T'
+circleDir = 'C'
+squareDir = 'S'
+crossDir = 'X'
+startDir = 'A'
+pauseDir = 'P'
