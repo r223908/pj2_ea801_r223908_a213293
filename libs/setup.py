@@ -50,3 +50,8 @@ motorPrincipal = PWM(Pin(MprincipalPin))
 motorCambio = PWM(Pin(cambioPin))
 motorPrincipal.duty_u16(0)
 motorCambio.duty_u16(0)
+
+
+#8. Configuração da interface I2C0 para o módulo bluetooth
+from machine import UART
+uart = UART(0, baudrate=9600, tx=Pin(0), rx=Pin(1))
