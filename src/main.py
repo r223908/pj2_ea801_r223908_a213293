@@ -10,7 +10,7 @@ def printOled(velocidade, direcao, posicao_cvt, bt_conectado):
     texto_sentido = "Parado" if velocidade == 0 else texto_sentido
     texto_bt = "ON" if bt_conectado == 1 else "OFF"
     display.fill(0)
-    display.text("Projeto CVT", 20, 0)
+    display.text("Câmbio CVT", 20, 0)
     display.text("-" * 16, 0, 10)
     display.text(f"Motor: {texto_sentido}", 0, 25)
     display.text(f"Pos. CVT: {posicao_cvt}%", 0, 40)
