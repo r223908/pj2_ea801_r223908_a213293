@@ -3,8 +3,6 @@ from setup import *
 # ==========================================
 # FUNÇÕES DE HARDWARE (MOTORES E TELA)
 # ==========================================
-
-# Atualizado para receber o status do bluetooth
 def printOled(velocidade, direcao, posicao_cvt, bt_conectado):
     texto_sentido = "Horario" if direcao == 1 else "Anti-Hor."  
     texto_sentido = "Parado" if velocidade == 0 else texto_sentido
@@ -72,8 +70,9 @@ def mover_atuador_cvt(acao):
     pass
 
 
-
-# Função de Interrupção dos Botões (Mantida original)
+# ==========================================
+# Função de Interrupção dos Botões
+# ==========================================
 def trata_interrupcao_botao(pino):
     global cor_travada, ultimo_tempo_btn
     tempo_atual = utime.ticks_ms()
