@@ -65,6 +65,7 @@ led_azul.value(0) # Inicia desligado
 
 # 9. Inicializa a UART0 para o Bluetooth (Pinos do Conector J2)
 bluetooth = machine.UART(0, baudrate=9600, tx=machine.Pin(0), rx=machine.Pin(1))
+status_bt = machine.Pin(4, machine.Pin.IN)      # Pino que vai ler o pino 'STATE' do módulo Bluetooth
 
 # 10. Mapeamento das entradas bluetooth
 outButtonDir = '0'
