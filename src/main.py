@@ -8,7 +8,7 @@ def printOled(velocidade, direcao, posicao_cvt, bt_conectado):
     texto_sentido = "Parado" if velocidade == 0 else texto_sentido
     texto_bt = "ON" if bt_conectado == 1 else "OFF"
     display.fill(0)
-    display.text("Câmbio CVT", 20, 0)
+    display.text("Cambio CVT", 20, 0)
     display.text("-" * 16, 0, 10)
     display.text(f"Motor: {texto_sentido}", 0, 25)
     display.text(f"Pos. CVT: {posicao_cvt}%", 0, 40)
@@ -66,8 +66,21 @@ def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False)
             
         Mprincipal_PWM.duty_u16(int((velocidade_percentual / 100) * 65535))
 
-def mover_atuador_cvt(acao):
-    pass
+def mover_atuador_cvt(direcao):     #Move o fuso do CVT. 
+    # direcao: 1 (Sobe a marcha / Avança a porca)  ;  direcao: -1 (Desce a marcha / Recua a porca)
+    if direcao == 1:            # Define o sentido da Ponte H do Câmbio
+        Mcambio_DIR1.value(1)
+        Mcambio_DIR2.value(0)
+    elif direcao == -1:
+        Mcambio_DIR1.value(0)
+        Mcambio_DIR2.value(1)
+    else:
+        return # Se vier 0, não faz nada
+    Mcambio_PWM.duty_u16(65535)                     # Liga o motor do câmbio (duty-cycle em 100%)
+    utime.sleep_ms(TEMPO_PASSO_CVT_MS)              # Mantém o motor ligado pelo tempo estimado de 10%
+    Mcambio_DIR1.value(0)                           # Desliga o motor imediatamente para frear a porca
+    Mcambio_DIR2.value(0)
+    Mcambio_PWM.duty_u16(0)
 
 
 # ==========================================
@@ -157,11 +170,15 @@ while True:
                         direcao_motor = -1
                         controlar_motor_principal(velocidade_atual, direcao_motor, deve_fazer_rampa)
                         
-                    elif comando == triangleDir: 
-                        posicao_cvt = min(100, posicao_cvt + 10)
-                        
-                    elif comando == crossDir: 
-                        posicao_cvt = max(0, posicao_cvt - 10)
+                    elif comando == triangleDir:    #sobe marcha
+                        if posicao_cvt < 100: # Só move se não estiver no máximo
+                            mover_atuador_cvt(1)
+                            posicao_cvt = min(100, posicao_cvt + 10)                      
+                            
+                    elif comando == crossDir:       #desce marcha
+                        if posicao_cvt > 0: # Só move se não estiver no mínimo
+                            mover_atuador_cvt(-1)
+                            posicao_cvt = max(0, posicao_cvt - 10)
                         
                     elif comando == pauseDir: 
                         velocidade_atual = 0
