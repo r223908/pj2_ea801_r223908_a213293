@@ -12,47 +12,33 @@ def printOled(velocidade, direcao, posicao_cvt, bt_conectado):
     display.text("-" * 16, 0, 10)
     display.text(f"Motor: {texto_sentido}", 0, 25)
     display.text(f"Pos. CVT: {posicao_cvt}%", 0, 40)
-    display.text(f"Bluetooth: {texto_bt}", 0, 55) # Nova linha no final!
+    display.text(f"Bluetooth: {texto_bt}", 0, 55)
     display.show()
 
 def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False):
-    """Controla o motor primário e seu sentido, com opção de rampa na reversão"""
-    
-    # Se pediram rampa e o motor não está zerado
+    # ... (Seu código da rampa continua exatamente igual aqui) ...
     if fazer_rampa and velocidade_percentual > 0:
-        passos = 10 # Divide a aceleração/desaceleração em 10 etapas
-        # Metade do tempo para desacelerar, metade para acelerar. Converte ms para segundos.
+        passos = 10 
         tempo_por_passo = (TEMPO_RAMPA_MS / 2000) / passos 
         passo_pwm = max(1, velocidade_percentual // passos)
-        
-        # 1. Rampa de descida (Freia suavemente mantendo a direção antiga)
         for v in range(velocidade_percentual, -1, -passo_pwm):
             Mprincipal_PWM.duty_u16(int((v / 100) * 65535))
             utime.sleep(tempo_por_passo)
-            
-        # 2. Desliga a Ponte H e inverte a direção
         Mprincipal_DIR1.value(0)
         Mprincipal_DIR2.value(0)
         Mprincipal_PWM.duty_u16(0)
-        utime.sleep(0.05) # Pequena pausa de segurança mecânica
-        
+        utime.sleep(0.05) 
         if direcao == 1:
             Mprincipal_DIR1.value(1)
             Mprincipal_DIR2.value(0)
         else:
             Mprincipal_DIR1.value(0)
             Mprincipal_DIR2.value(1)
-            
-        # 3. Rampa de subida (Acelera suavemente no sentido novo)
         for v in range(0, velocidade_percentual + 1, passo_pwm):
             Mprincipal_PWM.duty_u16(int((v / 100) * 65535))
             utime.sleep(tempo_por_passo)
-            
-        # Garante que cravou exatamente na velocidade alvo no final da rampa
         Mprincipal_PWM.duty_u16(int((velocidade_percentual / 100) * 65535))
-
     else:
-        # Comportamento direto (Ligar do zero ou Parada de emergência)
         if velocidade_percentual > 0:
             if direcao == 1:
                 Mprincipal_DIR1.value(1)
@@ -63,25 +49,20 @@ def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False)
         else:
             Mprincipal_DIR1.value(0)
             Mprincipal_DIR2.value(0)
-            
         Mprincipal_PWM.duty_u16(int((velocidade_percentual / 100) * 65535))
 
-def mover_atuador_cvt(direcao):     #Move o fuso do CVT. 
-    # direcao: 1 (Sobe a marcha / Avança a porca)  ;  direcao: -1 (Desce a marcha / Recua a porca)
-    if direcao == 1:            # Define o sentido da Ponte H do Câmbio
+
+# NOVA VERSÃO: Apenas liga o motor na direção certa (Não tem mais sleep nem desliga)
+def iniciar_movimento_cvt(direcao):     
+    if direcao == 1:            
         Mcambio_DIR1.value(1)
         Mcambio_DIR2.value(0)
     elif direcao == -1:
         Mcambio_DIR1.value(0)
         Mcambio_DIR2.value(1)
     else:
-        return # Se vier 0, não faz nada
-    Mcambio_PWM.duty_u16(65535)                     # Liga o motor do câmbio (duty-cycle em 100%)
-    utime.sleep_ms(TEMPO_PASSO_CVT_MS)              # Mantém o motor ligado pelo tempo estimado de 10%
-    Mcambio_DIR1.value(0)                           # Desliga o motor imediatamente para frear a porca
-    Mcambio_DIR2.value(0)
-    Mcambio_PWM.duty_u16(0)
-
+        return 
+    Mcambio_PWM.duty_u16(65535) 
 
 # ==========================================
 # Função de Interrupção dos Botões
@@ -102,9 +83,6 @@ botao_a.irq(trigger=Pin.IRQ_FALLING, handler=trata_interrupcao_botao)
 botao_b.irq(trigger=Pin.IRQ_FALLING, handler=trata_interrupcao_botao)
 botao_c.irq(trigger=Pin.IRQ_FALLING, handler=trata_interrupcao_botao)
 
-
-
-
 # ==========================================
 # INICIALIZAÇÃO E LOOP PRINCIPAL
 # ==========================================
@@ -115,6 +93,10 @@ ultimo_tempo_oled = utime.ticks_ms()
 velocidade_atual = 0
 direcao_motor = 1 
 posicao_cvt = 0  
+
+# NOVAS VARIÁVEIS PARA O CVT ASSÍNCRONO
+cvt_em_movimento = False
+ultimo_tempo_cvt = 0
 
 for i in range(NUM_LEDS):
     np[i] = (0, 0, 0)
@@ -127,18 +109,16 @@ while True:
     
     # 1. ATUALIZAÇÃO DO DISPLAY OLED
     if utime.ticks_diff(tempo_atual, ultimo_tempo_oled) >= ATT_DISPLAY_MS:
-        # Lemos o valor do pino na hora de atualizar a tela (vai retornar 1 ou 0)
         estado_conexao = status_bt.value()
 
-        # Parada de emergência se perder a conexão com rampa de desaceleração
         if estado_conexao == 0 and velocidade_atual > 0:
-            passos = 10                                             #Faz a rampa de desaceleração suave
+            passos = 10                                             
             tempo_por_passo = (TEMPO_RAMPA_MS / 2000) / passos
             passo_pwm = max(1, velocidade_atual // passos)
             for v in range(velocidade_atual, -1, -passo_pwm):
                 Mprincipal_PWM.duty_u16(int((v / 100) * 65535))
                 utime.sleep(tempo_por_passo)
-            velocidade_atual = 0                                    #zera as variáveis e garante o motor desligado
+            velocidade_atual = 0                                    
             controlar_motor_principal(0, direcao_motor)
 
         printOled(velocidade_atual, direcao_motor, posicao_cvt, estado_conexao)
@@ -159,36 +139,54 @@ while True:
                         controlar_motor_principal(velocidade_atual, direcao_motor)
                         
                     elif comando == frontDir: 
-                        # Verifica se está invertendo o sentido com o motor rodando
                         deve_fazer_rampa = (direcao_motor == -1 and velocidade_atual > 0)
                         direcao_motor = 1
                         controlar_motor_principal(velocidade_atual, direcao_motor, deve_fazer_rampa)
                         
                     elif comando == backDir: 
-                        # Verifica se está invertendo o sentido com o motor rodando
                         deve_fazer_rampa = (direcao_motor == 1 and velocidade_atual > 0)
                         direcao_motor = -1
                         controlar_motor_principal(velocidade_atual, direcao_motor, deve_fazer_rampa)
                         
-                    elif comando == triangleDir:    #sobe marcha
-                        if posicao_cvt < 100: # Só move se não estiver no máximo
-                            mover_atuador_cvt(1)
+                    elif comando == triangleDir:    # sobe marcha
+                        # Adicionada a regra: "not cvt_em_movimento" para evitar acúmulo de comandos
+                        if posicao_cvt < 100 and not cvt_em_movimento: 
+                            iniciar_movimento_cvt(1)
+                            cvt_em_movimento = True
+                            ultimo_tempo_cvt = tempo_atual # Marca a hora que ligou
                             posicao_cvt = min(100, posicao_cvt + 10)                      
                             
-                    elif comando == crossDir:       #desce marcha
-                        if posicao_cvt > 0: # Só move se não estiver no mínimo
-                            mover_atuador_cvt(-1)
+                    elif comando == crossDir:       # desce marcha
+                        if posicao_cvt > 0 and not cvt_em_movimento: 
+                            iniciar_movimento_cvt(-1)
+                            cvt_em_movimento = True
+                            ultimo_tempo_cvt = tempo_atual # Marca a hora que ligou
                             posicao_cvt = max(0, posicao_cvt - 10)
                         
                     elif comando == pauseDir: 
                         velocidade_atual = 0
                         controlar_motor_principal(0, direcao_motor)
+                        # Parada de emergência para o Câmbio também!
+                        Mcambio_DIR1.value(0)
+                        Mcambio_DIR2.value(0)
+                        Mcambio_PWM.duty_u16(0)
+                        cvt_em_movimento = False
                     
                     led_azul.value(0)
         except UnicodeError:
             pass 
 
-    # 3. ANIMAÇÃO DA MATRIZ DE LEDS
+    # 3. VERIFICADOR ASSÍNCRONO DO MOTOR CVT (NOVO)
+    # Fica verificando se o tempo do motor do câmbio já deu
+    if cvt_em_movimento:
+        if utime.ticks_diff(tempo_atual, ultimo_tempo_cvt) >= TEMPO_PASSO_CVT_MS:
+            # O tempo do passo (ex: 3s) acabou! Desliga o motor do CVT.
+            Mcambio_DIR1.value(0)
+            Mcambio_DIR2.value(0)
+            Mcambio_PWM.duty_u16(0)
+            cvt_em_movimento = False
+
+    # 4. ANIMAÇÃO DA MATRIZ DE LEDS
     np.fill((0, 0, 0))
     if posicao_cvt == 0 or velocidade_atual == 0:
         np[LED_MEIO] = cor_travada 
