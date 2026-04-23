@@ -51,8 +51,6 @@ def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False)
             Mprincipal_DIR2.value(0)
         Mprincipal_PWM.duty_u16(int((velocidade_percentual / 100) * 65535))
 
-
-# NOVA VERSÃO: Apenas liga o motor na direção certa (Não tem mais sleep nem desliga)
 def iniciar_movimento_cvt(direcao):     
     if direcao == 1:            
         Mcambio_DIR1.value(1)
@@ -106,11 +104,9 @@ print("Aguardando comandos Bluetooth...")
 
 while True:
     tempo_atual = utime.ticks_ms()
-    
     # 1. ATUALIZAÇÃO DO DISPLAY OLED
     if utime.ticks_diff(tempo_atual, ultimo_tempo_oled) >= ATT_DISPLAY_MS:
         estado_conexao = status_bt.value()
-
         if estado_conexao == 0 and velocidade_atual > 0:
             passos = 10                                             
             tempo_por_passo = (TEMPO_RAMPA_MS / 2000) / passos
@@ -120,7 +116,6 @@ while True:
                 utime.sleep(tempo_por_passo)
             velocidade_atual = 0                                    
             controlar_motor_principal(0, direcao_motor)
-
         printOled(velocidade_atual, direcao_motor, posicao_cvt, estado_conexao)
         ultimo_tempo_oled = tempo_atual
 
