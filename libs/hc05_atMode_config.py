@@ -1,3 +1,17 @@
+"""
+Como usar:
+1. Segurar botão da placa HC-05 (ao ligar a BitDogLab, o módulo vai piscar os LEDs a cada 2 segundos).
+2. Inserir o cabo USB na entrada da BitDogLab.
+3. No VSCode, selecionar este .py na árvore usar a opção "Run current file on Pico"
+4. Testar interface com o comando "AT" --> Deve aparecer um "OK" onde estava o "AT".
+5. Configurar usuário da placa:
+    a. AT+NAME=....     --> digitar o nome do módulo; e.g.: AT+NAME=EA801_CVT
+    b. AT+PSWD=xxxx     --> senha de 4 digitos = xxxx
+    c. AT+CMODE=1       --> para se conectar com qualquer dispositivo através da senha
+6. Desligar a placa e realizar pareamento.
+"""
+
+
 import machine
 import sys
 import uselect
@@ -25,12 +39,13 @@ while True:
     # 1. Se chegou algo do HC-05, imprime no terminal do PC
     if uart.any():
         resposta = uart.read()
-        try:
-            print(resposta.decode('utf-8'), end='')
-        except UnicodeError:
-            print(resposta) # Imprime cru se houver lixo na serial
+        if resposta is not None:        # sem isso vai aparecer um erro no decode abaixo
+            try:
+                print(resposta.decode('utf-8'), end='')
+            except UnicodeError:
+                print(resposta) # Imprime cru se houver lixo na serial
             
-    # 2. Se você digitou algo no terminal do PC, envia para o HC-05
+    # 2. Se digitar algo no terminal do PC, 05envia para o HC-
     if teclado.poll(0):
         comando = sys.stdin.readline().strip() # Lê o que foi digitado
         if comando:

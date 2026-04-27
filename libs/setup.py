@@ -1,3 +1,8 @@
+"""
+    arquivo de importação de bibliotecas, configuração de interfaces e variáveis
+"""
+
+
 from machine import Pin, ADC, I2C, PWM
 import neopixel, utime, machine
 import ssd1306

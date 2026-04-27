@@ -1,3 +1,9 @@
+"""
+1. Arquivo de uso geral para mapear o que chega de informação na UART com o módulo bluetooth.
+2. Utilizado para reconhecer os comandos e configurar o setup.py deste projeto.
+3. O que a placa receber será exibido no Terminal do VSCode.
+"""
+
 import machine
 import utime
 

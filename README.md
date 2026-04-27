@@ -9,15 +9,15 @@
 **Professor:** Eric Rohmer
 
 * **Proposta de Projeto**: [Proposta em G-Docs](https://docs.google.com/document/d/18PMYSmtTR0OQQLU4SV4fV71K-Bi9EbMdW6YyoQtnZmc/edit?usp=sharing) (acesso "Comentador" para UNICAMP)
-* **Relatório de projeto (in-work)**: [Relatório em G-Docs](https://docs.google.com/document/d/1z_JGgpvWlYswWX_sQGRnS61v9bXmHXGZWmitXccoX50/edit?usp=sharing) (acesso "Comentador" para UNICAMP)
-* **Demonstração do projeto no YouTube (in-work)**: [Vídeo](a)
+* **Relatório de projeto**: [Relatório em G-Docs](https://docs.google.com/document/d/1z_JGgpvWlYswWX_sQGRnS61v9bXmHXGZWmitXccoX50/edit?usp=sharing) (acesso "Comentador" para UNICAMP)
+* **Demonstração do projeto no YouTube**: [Vídeo](a)
 
 ---
-## ⚙️ DESCRIÇÃO DO SISTEMA (v0)
+## ⚙️ DESCRIÇÃO DO SISTEMA (v1)
 O sistema desenvolvido consiste na implementação de uma bancada de testes para um **Câmbio de Transmissão Continuamente Variável (CVT)** simulado, controlado remotamente via interface sem fio. O projeto utiliza a plataforma BitDogLab V7 como unidade central de processamento, integrando comunicação serial, controle de potência e telemetria.
 
 O controle é dividido em dois eixos de atuação:
-1. Eixo motor: Um motor de corrente contínua (DC), simulando a rotação do motor primário, controlado via PWM.
+1. Eixo motor: Um motor de corrente contínua (DC), simulando a rotação do motor primário, controlado via PWM mas com a rotação travada em 100%.
 2. Atuador do câmbio: Um segundo motor acoplado a um sistema de fuso (atuador linear), responsável por alterar a posição física da correia do câmbio CVT.
 
 A interface homem-máquina (IHM) é realizada de forma remota através de um módulo Bluetooth (conectado à interface UART da placa) com a integração de um aplicativo no celular. O display OLED da placa é utilizado para exibir a telemetria em tempo real.
@@ -32,19 +32,32 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
 
 <figure align="center">
     <figcaption><i>Figura 2: Referência de projeto feito em LEGO.</i></figcaption>
-    <img src="/docs/images/referencia_lego_1.png" width="90%" style="border: 2px solid black; border-radius: 8px;" alt="Referência LEGO">
+    <img src="/docs/images/referencia_lego_1.png" width="70%" style="border: 2px solid black; border-radius: 8px;" alt="Referência LEGO">
+</figure>
+
+<figure align="center">
+    <figcaption><i>Figura 3: Equipamento montado e testado.</i></figcaption>
+    <img src="/docs/images/cvt_cad_v1.png" width="50%" style="border: 2px solid black; border-radius: 8px;" alt="Equipamento montado">
 </figure>
 
 
 ---
 ## ❗REQUISITOS
-1. BitDogLab V7.
-2. Ponte H L293D (CI) para ambos os motores.
-3. Protoboard 400 pinos.
-4. Jumpers.
-5. Fonte regulável.
-6. Cabo micro USB.
-7. Ambiente de desenvolvimento configurado para MicroPython.
+- 1x BitDogLab V7.
+- 2x Ponte H L293D (CI) para ambos os motores.
+- 1x Protoboard 400 pinos ou fazer toda a ligação na placa soldada.
+- Jumpers M-M e M-F.
+- 1x Adaptador de 4 pilhas AA (6 Vcc para os motores e alimentação da placa).
+- 4x pilhas AA (1,5 Vcc)
+- Cabo micro USB (usar apenas para passar a programação, com as pilhas desconectadas).
+- Módulo Bluetooth HC05
+- Ambiente de desenvolvimento configurado para MicroPython.
+
+---
+## 🔧CONFIGURAÇÕES
+- BitDogLab V7: Transferir os arquivos **main.py**, **setup.py** e **ssd1306.py** para a placa via USB.
+- Ligação das pontes H e motores conforme **/docs/images/schematic.png**
+- Módulo Bluetooth HC05 configurado em AT Mode usando **hc05_atMode_config.py**
 
 ---
 ## 📚 REFERÊNCIAS
@@ -62,6 +75,7 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
 ``` text
 ├── .vscode/                        → Listagens das config. e bibliotecas
 ├── docs/                           → Documentação do projeto
+│   ├── CAD_files/                  → Arquivos .stl e PDF_3D da montagem
 │   ├── images/                     → Imagens para relatórios e referências
 │   ├── video/                      
 │   │   └── Vídeo(s) original(is)   → Vídeo original

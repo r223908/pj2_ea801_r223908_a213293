@@ -3,6 +3,8 @@ from setup import *
 # ==========================================
 # FUNÇÕES DE HARDWARE (MOTORES E TELA)
 # ==========================================
+
+# Lida com as informações do display OLED
 def printOled(velocidade, direcao, posicao_cvt, bt_conectado):
     texto_sentido = "Horario" if direcao == 1 else "Anti-Hor."  
     texto_sentido = "Parado" if velocidade == 0 else texto_sentido
@@ -15,8 +17,10 @@ def printOled(velocidade, direcao, posicao_cvt, bt_conectado):
     display.text(f"Bluetooth: {texto_bt}", 0, 55)
     display.show()
 
+#controle do motor principal, lidando com a velocidade (mantida em 100%) e sentido de giro
 def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False):
-    # ... (Seu código da rampa continua exatamente igual aqui) ...
+    # verificação se recebeu o comando para inverter o sentido do motor ou parar
+    # nos dois casos tem rampa de variação de velocidade para não ter um solavanco nos componentes mecânicos
     if fazer_rampa and velocidade_percentual > 0:
         passos = 10 
         tempo_por_passo = (TEMPO_RAMPA_MS / 2000) / passos 
@@ -28,7 +32,7 @@ def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False)
         Mprincipal_DIR2.value(0)
         Mprincipal_PWM.duty_u16(0)
         utime.sleep(0.05) 
-        if direcao == 1:
+        if direcao == 1:                # a mudança de direção pode ser feita na inversão dos fios de alimentação do motor 
             Mprincipal_DIR1.value(1)
             Mprincipal_DIR2.value(0)
         else:
@@ -38,7 +42,7 @@ def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False)
             Mprincipal_PWM.duty_u16(int((v / 100) * 65535))
             utime.sleep(tempo_por_passo)
         Mprincipal_PWM.duty_u16(int((velocidade_percentual / 100) * 65535))
-    else:
+    else:           # controle normal, apenas ocorre se recebe algum comando via Bluetooth
         if velocidade_percentual > 0:
             if direcao == 1:
                 Mprincipal_DIR1.value(1)
@@ -51,6 +55,8 @@ def controlar_motor_principal(velocidade_percentual, direcao, fazer_rampa=False)
             Mprincipal_DIR2.value(0)
         Mprincipal_PWM.duty_u16(int((velocidade_percentual / 100) * 65535))
 
+# movimentação do câmbio, dependendo do sentido que ele precisar girar
+# velocidade também sempre em 100%
 def iniciar_movimento_cvt(direcao):     
     if direcao == 1:            
         Mcambio_DIR1.value(1)
@@ -84,18 +90,19 @@ botao_c.irq(trigger=Pin.IRQ_FALLING, handler=trata_interrupcao_botao)
 # ==========================================
 # INICIALIZAÇÃO E LOOP PRINCIPAL
 # ==========================================
-
 ultimo_tempo_pisca = utime.ticks_ms()
 ultimo_tempo_oled = utime.ticks_ms()
 
+# inicializacao dos motores
 velocidade_atual = 0
 direcao_motor = 1 
 posicao_cvt = 0  
 
-# NOVAS VARIÁVEIS PARA O CVT ASSÍNCRONO
+# VARIÁVEIS PARA O CVT ASSÍNCRONO
 cvt_em_movimento = False
 ultimo_tempo_cvt = 0
 
+# desliga a matriz de LEDs
 for i in range(NUM_LEDS):
     np[i] = (0, 0, 0)
 np.write()
@@ -104,6 +111,7 @@ print("Aguardando comandos Bluetooth...")
 
 while True:
     tempo_atual = utime.ticks_ms()
+
     # 1. ATUALIZAÇÃO DO DISPLAY OLED
     if utime.ticks_diff(tempo_atual, ultimo_tempo_oled) >= ATT_DISPLAY_MS:
         estado_conexao = status_bt.value()
@@ -129,21 +137,21 @@ while True:
                 if comando:
                     led_azul.value(1) 
                     
-                    if comando == startDir: 
+                    if comando == startDir:         # ligar motor principal
                         velocidade_atual = 100
                         controlar_motor_principal(velocidade_atual, direcao_motor)
                         
-                    elif comando == frontDir: 
+                    elif comando == frontDir:       # sentido horário
                         deve_fazer_rampa = (direcao_motor == -1 and velocidade_atual > 0)
                         direcao_motor = 1
                         controlar_motor_principal(velocidade_atual, direcao_motor, deve_fazer_rampa)
                         
-                    elif comando == backDir: 
+                    elif comando == backDir:        # sentido anti-horário
                         deve_fazer_rampa = (direcao_motor == 1 and velocidade_atual > 0)
                         direcao_motor = -1
                         controlar_motor_principal(velocidade_atual, direcao_motor, deve_fazer_rampa)
                         
-                    elif comando == triangleDir:    # sobe marcha
+                    elif comando == triangleDir:    # sobe marcha; motor CVT
                         # Adicionada a regra: "not cvt_em_movimento" para evitar acúmulo de comandos
                         if posicao_cvt < 100 and not cvt_em_movimento: 
                             iniciar_movimento_cvt(1)
@@ -151,14 +159,14 @@ while True:
                             ultimo_tempo_cvt = tempo_atual # Marca a hora que ligou
                             posicao_cvt = min(100, posicao_cvt + 10)                      
                             
-                    elif comando == crossDir:       # desce marcha
+                    elif comando == crossDir:       # desce marcha; motor CVT
                         if posicao_cvt > 0 and not cvt_em_movimento: 
                             iniciar_movimento_cvt(-1)
                             cvt_em_movimento = True
                             ultimo_tempo_cvt = tempo_atual # Marca a hora que ligou
                             posicao_cvt = max(0, posicao_cvt - 10)
                         
-                    elif comando == pauseDir: 
+                    elif comando == pauseDir:       # para o motor principal
                         velocidade_atual = 0
                         controlar_motor_principal(0, direcao_motor)
                         # Parada de emergência para o Câmbio também!
@@ -171,7 +179,7 @@ while True:
         except UnicodeError:
             pass 
 
-    # 3. VERIFICADOR ASSÍNCRONO DO MOTOR CVT (NOVO)
+    # 3. VERIFICADOR ASSÍNCRONO DO MOTOR CVT
     # Fica verificando se o tempo do motor do câmbio já deu
     if cvt_em_movimento:
         if utime.ticks_diff(tempo_atual, ultimo_tempo_cvt) >= TEMPO_PASSO_CVT_MS:
@@ -181,7 +189,7 @@ while True:
             Mcambio_PWM.duty_u16(0)
             cvt_em_movimento = False
 
-    # 4. ANIMAÇÃO DA MATRIZ DE LEDS
+    # 4. ANIMAÇÃO DA MATRIZ DE LEDS PARA REPLICAR O SENTIDO DE GIRO DO MOTOR PRINCIPAL
     np.fill((0, 0, 0))
     if posicao_cvt == 0 or velocidade_atual == 0:
         np[LED_MEIO] = cor_travada 
