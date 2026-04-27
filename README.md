@@ -26,7 +26,7 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
 
 <figure align="center">
     <figcaption><i>Figura 1: Diagrama de blocos do projeto.</i></figcaption>
-    <img src="/docs/images/blockDiag_v0.png" width="100%" style="border: 2px solid black; border-radius: 8px;" alt="Diagrama de blocos do projeto">
+    <img src="/docs/images/blockDiag_v1.png" width="100%" style="border: 2px solid black; border-radius: 8px;" alt="Diagrama de blocos do projeto">
     </br>
 </figure>
 
