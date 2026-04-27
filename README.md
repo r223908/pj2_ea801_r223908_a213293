@@ -61,7 +61,7 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
     - 2x Parafuso ISO 4017 M4x20 (Eixos do cone de saída)
     - 1x Parafuso ISO 4017 M6x15 (Contra-eixo do cone principal)
     - 1x Parafuso ISO 4017 M6x60 (fuso do CVT)
-    - 1x Porca ISO 4032 M6 (Espaçador no fuso do CVT)
+    - 2x Porca ISO 4032 M6 (Espaçador no fuso do CVT e guia da polia)
     - 1x Arruela ISO 7093 Ø6 (Espaçador no fuso do CVT)
     - 4x Parafuso autoatarrachante 9/64"x1" (ou 1/8"x1" - Ø x Comprimento)
 - Peças impressas em 3D
