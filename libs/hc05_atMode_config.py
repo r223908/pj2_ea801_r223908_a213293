@@ -9,6 +9,9 @@ Como usar:
     b. AT+PSWD=xxxx     --> senha de 4 digitos = xxxx
     c. AT+CMODE=1       --> para se conectar com qualquer dispositivo através da senha
 6. Desligar a placa e realizar pareamento.
+
+
+A. Para mais comandos, ver /docs/datasheets/HC-05_ATCommandSet.pdf
 """
 
 

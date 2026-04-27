@@ -32,12 +32,17 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
 
 <figure align="center">
     <figcaption><i>Figura 2: Referência de projeto feito em LEGO.</i></figcaption>
-    <img src="/docs/images/referencia_lego_1.png" width="70%" style="border: 2px solid black; border-radius: 8px;" alt="Referência LEGO">
+    <img src="/docs/images/referencia_lego_1.png" width="60%" style="border: 2px solid black; border-radius: 8px;" alt="Referência LEGO">
 </figure>
 
 <figure align="center">
-    <figcaption><i>Figura 3: Equipamento montado e testado.</i></figcaption>
-    <img src="/docs/images/cvt_cad_v1.png" width="50%" style="border: 2px solid black; border-radius: 8px;" alt="Equipamento montado">
+    <figcaption><i>Figura 3: Projeto em CAD 3D.</i></figcaption>
+    <img src="/docs/images/cvt_cad_v1.png" width="45%" style="border: 2px solid black; border-radius: 8px;" alt="Equipamento montado">
+</figure>
+
+<figure align="center">
+    <figcaption><i>Figura 4: Equipamento testado e montado.</i></figcaption>
+    <img src="/docs/images/montagem/IMG-20260426-WA0001.jpeg" width="80%" style="border: 2px solid black; border-radius: 8px;" alt="Equipamento montado">
 </figure>
 
 
@@ -45,12 +50,21 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
 ## ❗REQUISITOS
 - 1x BitDogLab V7.
 - 2x Ponte H L293D (CI) para ambos os motores.
-- 1x Protoboard 400 pinos ou fazer toda a ligação na placa soldada.
+- 1x Protoboard 400 pinos ou fazer toda a ligação na placa de fenolite com solda.
 - Jumpers M-M e M-F.
 - 1x Adaptador de 4 pilhas AA (6 Vcc para os motores e alimentação da placa).
-- 4x pilhas AA (1,5 Vcc)
+- 4x pilhas AA (1,5 Vcc).
 - Cabo micro USB (usar apenas para passar a programação, com as pilhas desconectadas).
-- Módulo Bluetooth HC05
+- Módulo Bluetooth HC05.
+- Anel o-ring ou elástico.
+- Parafusos para montagem (alguns precisam ser colados na base)
+    - 2x Parafuso ISO 4017 M4x20 (Eixos do cone de saída)
+    - 1x Parafuso ISO 4017 M6x15 (Contra-eixo do cone principal)
+    - 1x Parafuso ISO 4017 M6x60 (fuso do CVT)
+    - 1x Porca ISO 4032 M6 (Espaçador no fuso do CVT)
+    - 1x Arruela ISO 7093 Ø6 (Espaçador no fuso do CVT)
+    - 4x Parafuso autoatarrachante 9/64"x1" (ou 1/8"x1" - Ø x Comprimento)
+- Peças impressas em 3D
 - Ambiente de desenvolvimento configurado para MicroPython.
 
 ---
