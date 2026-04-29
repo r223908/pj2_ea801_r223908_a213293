@@ -183,7 +183,7 @@ while True:
     # Fica verificando se o tempo do motor do câmbio já deu
     if cvt_em_movimento:
         if utime.ticks_diff(tempo_atual, ultimo_tempo_cvt) >= TEMPO_PASSO_CVT_MS:
-            # O tempo do passo (ex: 3s) acabou! Desliga o motor do CVT.
+            # O tempo do passo (ex: 2s) acabou! Desliga o motor do CVT.
             Mcambio_DIR1.value(0)
             Mcambio_DIR2.value(0)
             Mcambio_PWM.duty_u16(0)

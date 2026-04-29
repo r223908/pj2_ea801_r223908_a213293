@@ -63,7 +63,7 @@ Mcambio_DIR2 = Pin(8, Pin.OUT)
 Mcambio_PWM  = PWM(Pin(9))
 Mcambio_PWM.freq(1000)
 Mcambio_PWM.duty_u16(0)
-TEMPO_PASSO_CVT_MS = 3000  # 3000 ms = 3 segundos
+TEMPO_PASSO_CVT_MS = 2000  # 2000 ms = 2 segundos
 
 # 8. Configura o LED Azul da placa (GPIO 12) para feedback visual
 led_azul = machine.Pin(12, machine.Pin.OUT)
