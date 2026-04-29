@@ -559,193 +559,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Diode:1N4007"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "D"
-				(at 0 2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "1N4007"
-				(at 0 -2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
-				(at 0 -4.445 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "1000V 1A General Purpose Rectifier Diode, DO-41"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Sim.Device" "D"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Sim.Pins" "1=K 2=A"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "diode"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "D*DO?41*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "1N4007_0_1"
-				(polyline
-					(pts
-						(xy -1.27 1.27) (xy -1.27 -1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 1.27) (xy 1.27 -1.27) (xy -1.27 0) (xy 1.27 1.27)
-					)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy -1.27 0)
-					)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "1N4007_1_1"
-				(pin passive line
-					(at -3.81 0 0)
-					(length 2.54)
-					(name "K"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 3.81 0 180)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Driver_Motor:L293D"
 			(pin_names
 				(offset 1.016)
@@ -2316,7 +2129,7 @@
 	)
 	(text "PILHAS"
 		(exclude_from_sim no)
-		(at 203.454 53.086 0)
+		(at 203.454 55.626 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -2341,12 +2154,6 @@
 		(uuid "b0cfe0a4-db07-4fee-9854-844b0f85ceb0")
 	)
 	(junction
-		(at 208.28 54.61)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "c008dea6-6102-4200-b744-bc2d98139e61")
-	)
-	(junction
 		(at 203.2 114.3)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2367,16 +2174,6 @@
 			(type default)
 		)
 		(uuid "0557dced-4ee1-485c-b52b-5fafbe688de1")
-	)
-	(wire
-		(pts
-			(xy 172.72 73.66) (xy 173.99 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "068d2105-c979-4257-b5a6-fb9474a24b53")
 	)
 	(wire
 		(pts
@@ -2430,6 +2227,16 @@
 	)
 	(wire
 		(pts
+			(xy 208.28 55.88) (xy 208.28 66.04)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "205d2d21-e20b-4ca1-9bc8-4c856e9d2526")
+	)
+	(wire
+		(pts
 			(xy 200.66 114.3) (xy 203.2 114.3)
 		)
 		(stroke
@@ -2447,16 +2254,6 @@
 			(type default)
 		)
 		(uuid "354704c5-4645-4eff-ad82-b1a9efd3d482")
-	)
-	(wire
-		(pts
-			(xy 173.99 63.5) (xy 173.99 64.77)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3c16fdf3-161b-4ef4-8ab3-58cdd808957f")
 	)
 	(wire
 		(pts
@@ -2530,16 +2327,6 @@
 	)
 	(wire
 		(pts
-			(xy 208.28 53.34) (xy 208.28 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "529eec0a-b133-4bd3-a272-f6c07eaaada3")
-	)
-	(wire
-		(pts
 			(xy 195.58 114.3) (xy 200.66 114.3)
 		)
 		(stroke
@@ -2587,16 +2374,6 @@
 			(type default)
 		)
 		(uuid "5fb16973-94a3-4f9c-b6fa-8be46e8e2dd7")
-	)
-	(wire
-		(pts
-			(xy 173.99 72.39) (xy 173.99 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6fe92dd0-9685-47ec-9ae3-eee702f36b12")
 	)
 	(wire
 		(pts
@@ -2680,16 +2457,6 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 54.61) (xy 208.28 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "9da3de55-8493-466c-a4fb-622d413f65ac")
-	)
-	(wire
-		(pts
 			(xy 200.66 111.76) (xy 200.66 114.3)
 		)
 		(stroke
@@ -2730,16 +2497,6 @@
 	)
 	(wire
 		(pts
-			(xy 173.99 55.88) (xy 173.99 54.61)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a9b2b557-19da-476e-82f1-199eb2bc0465")
-	)
-	(wire
-		(pts
 			(xy 162.56 111.76) (xy 163.83 111.76)
 		)
 		(stroke
@@ -2777,16 +2534,6 @@
 			(type default)
 		)
 		(uuid "b484ad3c-af5b-4316-81e2-f6e8dd48045d")
-	)
-	(wire
-		(pts
-			(xy 208.28 54.61) (xy 208.28 66.04)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bf7ee557-0b50-4959-99ef-bfbd4dc9cb03")
 	)
 	(wire
 		(pts
@@ -2997,110 +2744,6 @@
 			(justify left bottom)
 		)
 		(uuid "fcae6f0d-9a4d-400e-a2dd-602db2815f81")
-	)
-	(symbol
-		(lib_id "Diode:1N4007")
-		(at 173.99 68.58 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "0d8934ae-d162-407e-9048-554f89bfc55b")
-		(property "Reference" "D2"
-			(at 176.53 67.3099 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "1N4007"
-			(at 176.53 69.8499 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
-			(at 178.435 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf"
-			(at 173.99 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "1000V 1A General Purpose Rectifier Diode, DO-41"
-			(at 173.99 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 173.99 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 173.99 68.58 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "91784cfe-203b-4c23-857a-cfff0a8c90e0")
-		)
-		(pin "2"
-			(uuid "8cc97d42-bed1-44f5-8661-91c339604201")
-		)
-		(instances
-			(project "ea801_cvt"
-				(path "/0e0d7852-58b0-4957-a97f-76f6ac234760"
-					(reference "D2")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(symbol
 		(lib_name "Conn_01x06_MountingPin_1")
@@ -3496,7 +3139,7 @@
 	)
 	(symbol
 		(lib_id "power:+6V")
-		(at 208.28 53.34 0)
+		(at 208.28 55.88 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -3506,7 +3149,7 @@
 		(dnp no)
 		(uuid "63cfc7c4-337c-4f01-b84e-4d571fc7ef7f")
 		(property "Reference" "#PWR02"
-			(at 208.28 57.15 0)
+			(at 208.28 59.69 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3517,7 +3160,7 @@
 			)
 		)
 		(property "Value" "+6V"
-			(at 208.28 49.53 0)
+			(at 208.28 52.07 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3527,7 +3170,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 208.28 53.34 0)
+			(at 208.28 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3538,7 +3181,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 208.28 53.34 0)
+			(at 208.28 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3549,7 +3192,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+6V\""
-			(at 208.28 53.34 0)
+			(at 208.28 55.88 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3840,110 +3483,6 @@
 			(project "ea801_cvt"
 				(path "/0e0d7852-58b0-4957-a97f-76f6ac234760"
 					(reference "M1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Diode:1N4007")
-		(at 173.99 59.69 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "ff5f6bc7-cf30-4888-a793-7397846a2668")
-		(property "Reference" "D1"
-			(at 176.53 58.4199 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Value" "1N4007"
-			(at 176.53 60.9599 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "Diode_THT:D_DO-41_SOD81_P10.16mm_Horizontal"
-			(at 178.435 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" "http://www.vishay.com/docs/88503/1n4001.pdf"
-			(at 173.99 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "1000V 1A General Purpose Rectifier Diode, DO-41"
-			(at 173.99 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Device" "D"
-			(at 173.99 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Sim.Pins" "1=K 2=A"
-			(at 173.99 59.69 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "2a38680e-43ba-42ed-ba69-346ba8bbb060")
-		)
-		(pin "2"
-			(uuid "6e5d6e03-2b1f-47b0-bc6c-0661f5944fdb")
-		)
-		(instances
-			(project "ea801_cvt"
-				(path "/0e0d7852-58b0-4957-a97f-76f6ac234760"
-					(reference "D1")
 					(unit 1)
 				)
 			)
