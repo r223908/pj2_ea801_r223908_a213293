@@ -90,14 +90,16 @@ A interface homem-máquina (IHM) é realizada de forma remota através de um mó
 ├── .vscode/                        → Listagens das config. e bibliotecas
 ├── docs/                           → Documentação do projeto
 │   ├── CAD_files/                  → Arquivos .stl e PDF_3D da montagem
+│   ├── datasheets/                 → Folhas de dados dos equipamentos utilizados
 │   ├── images/                     → Imagens para relatórios e referências
-│   ├── video/                      
-│   │   └── Vídeo(s) original(is)   → Vídeo original
+│   ├── kicad_project/              → Projeto KiCad para a plaquinha shield
+│   ├── mermaid_files/              → arquivos para gerar os diagramas de bloco e gantt
+│   ├── video/                      → Vídeo original
 │   └── (...)                       → Proposta e relatório
-├── libs/                           → Bibliotecas
-│   └── (...)
-├── src/                            → Código-fonte
-│   └── (...)
+├── libs/                           
+│   └── (...)                       → Bibliotecas e arquivos de configuração
+├── src/                            
+│   └── main.py                     → Código-fonte
 ├── .micropico                      → Arquivo necessário para a extensão Pi PICO no VSCODE
 ├── LICENSE                         → Licença de uso do código
 └── README.md                       → Resumo e estrutura do projeto
