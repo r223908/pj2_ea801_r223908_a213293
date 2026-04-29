@@ -10,7 +10,7 @@
 
 * **Proposta de Projeto**: [Proposta em G-Docs](https://docs.google.com/document/d/18PMYSmtTR0OQQLU4SV4fV71K-Bi9EbMdW6YyoQtnZmc/edit?usp=sharing) (acesso "Comentador" para UNICAMP)
 * **Relatório de projeto**: [Relatório em G-Docs](https://docs.google.com/document/d/1z_JGgpvWlYswWX_sQGRnS61v9bXmHXGZWmitXccoX50/edit?usp=sharing) (acesso "Comentador" para UNICAMP)
-* **Demonstração do projeto no YouTube**: [Vídeo](a)
+* **Demonstração do projeto no YouTube**: [Vídeo](https://youtu.be/2NB8YhYpBq8)
 
 ---
 ## ⚙️ DESCRIÇÃO DO SISTEMA (v1)
